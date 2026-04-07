@@ -81,8 +81,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: Text search implementation with real-time results and optimized database queries
-- [ ] 04-02: Date range filtering, completion status filters, and full accessibility audit with screen reader testing
+- [ ] 04-01-PLAN.md — Text search implementation with real-time results, highlighting, and Material 3 SearchBar
+- [ ] 04-02-PLAN.md — Date range filtering, completion status filters, and comprehensive accessibility compliance
 
 ## Progress
 
