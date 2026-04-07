@@ -7,7 +7,9 @@ import '../widgets/calendar/date_task_list.dart';
 import '../widgets/calendar/week_calendar.dart';
 import '../widgets/calendar/day_calendar.dart';
 import '../widgets/common/responsive_layout.dart';
+import '../widgets/charts/productivity_charts.dart';
 import 'task_list_screen.dart';
+import 'analytics_screen.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -32,6 +34,7 @@ class MainScreen extends ConsumerWidget {
           _buildTasksView(context),
           _buildWeekView(context),
           _buildDayView(context),
+          _buildAnalyticsView(context),
         ],
       ),
       bottomNavigationBar: const AppBottomNavigation(),
@@ -47,6 +50,7 @@ class MainScreen extends ConsumerWidget {
           _buildTasksView(context),
           _buildWeekView(context),
           _buildDayView(context),
+          _buildAnalyticsView(context),
         ],
       ),
       bottomNavigationBar: const AppBottomNavigation(),
@@ -83,6 +87,10 @@ class MainScreen extends ConsumerWidget {
                 icon: Icon(Icons.calendar_today),
                 label: Text('Day'),
               ),
+              NavigationRailDestination(
+                icon: Icon(Icons.analytics),
+                label: Text('Analytics'),
+              ),
             ],
           ),
           const VerticalDivider(thickness: 1, width: 1),
@@ -95,6 +103,7 @@ class MainScreen extends ConsumerWidget {
                 _buildTasksView(context, showAppBar: false),
                 _buildWeekView(context, showAppBar: false),
                 _buildDayView(context, showAppBar: false),
+                _buildAnalyticsView(context, showAppBar: false),
               ],
             ),
           ),
@@ -221,6 +230,28 @@ class MainScreen extends ConsumerWidget {
               ),
             ),
           const Expanded(child: DayCalendarWidget()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAnalyticsView(BuildContext context, {bool showAppBar = true}) {
+    return Scaffold(
+      appBar: showAppBar ? AppBar(
+        title: const Text('Analytics'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ) : null,
+      body: Column(
+        children: [
+          if (!showAppBar)
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Analytics',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+          const Expanded(child: ProductivityChartsWidget()),
         ],
       ),
     );

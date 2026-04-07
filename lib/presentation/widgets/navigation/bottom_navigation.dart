@@ -33,6 +33,10 @@ class AppBottomNavigation extends ConsumerWidget {
           icon: Icon(Icons.calendar_today),
           label: 'Day',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.analytics),
+          label: 'Analytics',
+        ),
       ],
     );
   }
