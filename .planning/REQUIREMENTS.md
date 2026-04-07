@@ -98,15 +98,57 @@
 
 ## Traceability
 
-*This section will be populated by the roadmap creation process*
-
 ### Phase Mapping
-- Phase 1: [Requirements mapped during roadmap creation]
-- Phase 2: [Requirements mapped during roadmap creation]  
-- Phase 3: [Requirements mapped during roadmap creation]
+
+**Phase 1: Foundation** (8 requirements)
+- TASK-01, TASK-02, TASK-03, TASK-04: Core task CRUD operations
+- DATA-01, DATA-02, DATA-03: Local data persistence and performance
+- UI-06: Keyboard input handling
+
+**Phase 2: Calendar Integration** (9 requirements)  
+- CAL-01, CAL-04, CAL-05: Month calendar view and navigation
+- DISP-01, DISP-02, DISP-03, DISP-04: Task display and calendar interaction
+- UI-01, UI-05: Responsive design and platform conventions
+
+**Phase 3: Advanced Views** (7 requirements)
+- CAL-02, CAL-03: Week and day calendar views with time blocks
+- CHART-01, CHART-02, CHART-03: Productivity analytics and charts
+- UI-02, UI-03: Touch targets and contrast accessibility
+
+**Phase 4: Search & Polish** (4 requirements)
+- SEARCH-01, SEARCH-02: Text search in title and description
+- FILTER-01, FILTER-02: Date range and status filtering  
+- UI-04: Screen reader accessibility
 
 ### Success Criteria Cross-Reference
-- [REQ-ID] → [Phase] → [Success Criterion]
+
+**Phase 1 Success Criteria**:
+- TASK-01 → "User can create tasks with title, description, date, time, duration through a form"
+- TASK-02 → "User can edit existing tasks and changes persist immediately"
+- TASK-03 → "User can delete tasks with confirmation and data is permanently removed"
+- TASK-04 → "User can mark tasks complete/incomplete with visual status change"
+- DATA-01,02,03 → "App starts quickly (<2 seconds) and all task data survives app restarts"
+- UI-06 → "Keyboard input works smoothly without breaking form layouts"
+
+**Phase 2 Success Criteria**:
+- CAL-01,DISP-03 → "User sees month calendar view with visual indicators showing which dates have tasks"
+- DISP-01,02 → "User can tap any calendar date and see task list for that specific day"
+- CAL-04,05 → "User can navigate between months with smooth transitions and swipe gestures"
+- UI-01,05 → "Interface adapts properly to different screen sizes and follows platform design guidelines"
+- DISP-04 → "Current date is clearly highlighted and visually distinct in calendar"
+
+**Phase 3 Success Criteria**:
+- CAL-02 → "User can view weekly calendar with time slots showing task duration blocks"
+- CAL-03 → "User can view daily timeline with hourly breakdown and scheduled task blocks"
+- CHART-01,02 → "User can see bar charts showing days with most tasks and total busy minutes"
+- CHART-03 → "User can analyze productivity across different time ranges (week/month views)"
+- UI-02,03 → "All touch targets meet 44pt minimum and maintain sufficient color contrast"
+
+**Phase 4 Success Criteria**:
+- SEARCH-01,02 → "User can search tasks by title or description with real-time filtering results"
+- FILTER-01 → "User can filter tasks by date ranges using date picker controls"
+- FILTER-02 → "User can filter by completion status with clear filter state indication"
+- UI-04 → "Screen reader users can navigate all calendar views and create/edit tasks"
 
 ## Notes
 
