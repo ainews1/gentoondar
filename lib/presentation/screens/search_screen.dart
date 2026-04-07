@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_calendar_app/presentation/providers/search_providers.dart';
 import 'package:task_calendar_app/presentation/widgets/search/highlighted_task_card.dart';
+import 'package:task_calendar_app/presentation/widgets/search/search_filters.dart';
 import 'package:task_calendar_app/presentation/widgets/tasks/task_card.dart';
+import 'package:task_calendar_app/domain/usecases/get_tasks_by_completion_status.dart';
 
 /// Dedicated search screen with Material 3 SearchBar and real-time search.
 /// Provides comprehensive search interface following user decisions D-01, D-02, D-04, D-05.
@@ -69,6 +71,27 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     }
   }
 
+  /// Handle filter changes from SearchFilters widget
+  void _onFiltersChanged({
+    DateTime? startDate,
+    DateTime? endDate,
+    CompletionStatusFilter? statusFilter,
+  }) {
+    if (mounted) {
+      final notifier = ref.read(searchStateProvider.notifier);
+      
+      // Update date filter if provided
+      if (startDate != null || endDate != null) {
+        notifier.updateDateFilter(startDate, endDate);
+      }
+      
+      // Update status filter if provided
+      if (statusFilter != null) {
+        notifier.updateStatusFilter(statusFilter);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final searchState = ref.watch(searchStateProvider);
@@ -116,6 +139,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 ),
               ),
             ),
+          ),
+          
+          // Search filters section
+          SearchFilters(
+            startDate: searchState.startDate,
+            endDate: searchState.endDate,
+            statusFilter: searchState.statusFilter,
+            onFiltersChanged: _onFiltersChanged,
+            isExpanded: true,
           ),
           
           // Results section
@@ -208,23 +240,54 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     );
   }
 
+  /// Get count of active filters for display
+  int _getActiveFilterCount(SearchStateData searchState) {
+    int count = 0;
+    if (searchState.startDate != null) count++;
+    if (searchState.endDate != null) count++;
+    if (searchState.statusFilter != CompletionStatusFilter.all) count++;
+    return count;
+  }
+
   /// Build results list with highlighted task cards
   Widget _buildResultsList(SearchStateData searchState) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: searchState.results.length,
-      itemBuilder: (context, index) {
-        final task = searchState.results[index];
-        
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: HighlightedTaskCard(
-            task: task,
-            searchTerm: searchState.query,
-            key: ValueKey(task.id),
+    final activeFilterCount = _getActiveFilterCount(searchState);
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Results header with filter count
+        if (activeFilterCount > 0)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(
+              '${searchState.results.length} results with $activeFilterCount active filter${activeFilterCount == 1 ? '' : 's'}',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
           ),
-        );
-      },
+        
+        // Results list
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            itemCount: searchState.results.length,
+            itemBuilder: (context, index) {
+              final task = searchState.results[index];
+              
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: HighlightedTaskCard(
+                  task: task,
+                  searchTerm: searchState.query,
+                  key: ValueKey(task.id),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

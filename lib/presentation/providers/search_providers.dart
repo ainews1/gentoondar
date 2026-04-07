@@ -4,6 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/domain/usecases/search_tasks.dart';
+import 'package:task_calendar_app/domain/usecases/filter_tasks_by_date_range.dart';
+import 'package:task_calendar_app/domain/usecases/get_tasks_by_completion_status.dart';
 import 'package:task_calendar_app/presentation/providers/task_providers.dart';
 
 // =============================================================================
@@ -16,22 +18,40 @@ final searchTasksUseCaseProvider = Provider<SearchTasks>((ref) {
   return SearchTasks(repository);
 });
 
+/// Provides FilterTasksByDateRange use case
+final filterTasksByDateRangeUseCaseProvider = Provider<FilterTasksByDateRange>((ref) {
+  final repository = ref.watch(taskRepositoryProvider);
+  return FilterTasksByDateRange(repository);
+});
+
+/// Provides GetTasksByCompletionStatus use case
+final getTasksByCompletionStatusUseCaseProvider = Provider<GetTasksByCompletionStatus>((ref) {
+  final repository = ref.watch(taskRepositoryProvider);
+  return GetTasksByCompletionStatus(repository);
+});
+
 // =============================================================================
 // Search State Data Model
 // =============================================================================
 
-/// Data model for search state containing query, results, and loading state
+/// Data model for search state containing query, results, loading state, and filters
 class SearchStateData {
   final String query;
   final List<Task> results;
   final bool isLoading;
   final Failure? error;
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final CompletionStatusFilter statusFilter;
 
   const SearchStateData({
     required this.query,
     required this.results,
     required this.isLoading,
     this.error,
+    this.startDate,
+    this.endDate,
+    this.statusFilter = CompletionStatusFilter.all,
   });
 
   SearchStateData copyWith({
@@ -39,12 +59,18 @@ class SearchStateData {
     List<Task>? results,
     bool? isLoading,
     Failure? error,
+    DateTime? startDate,
+    DateTime? endDate,
+    CompletionStatusFilter? statusFilter,
   }) {
     return SearchStateData(
       query: query ?? this.query,
       results: results ?? this.results,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      statusFilter: statusFilter ?? this.statusFilter,
     );
   }
 
@@ -64,7 +90,10 @@ class SearchStateData {
         other.query == query &&
         other.results == results &&
         other.isLoading == isLoading &&
-        other.error == error;
+        other.error == error &&
+        other.startDate == startDate &&
+        other.endDate == endDate &&
+        other.statusFilter == statusFilter;
   }
 
   @override
@@ -72,7 +101,10 @@ class SearchStateData {
     return query.hashCode ^
         results.hashCode ^
         isLoading.hashCode ^
-        error.hashCode;
+        error.hashCode ^
+        startDate.hashCode ^
+        endDate.hashCode ^
+        statusFilter.hashCode;
   }
 }
 
@@ -86,6 +118,7 @@ class SearchStateNotifier extends StateNotifier<SearchStateData> {
     query: '',
     results: [],
     isLoading: false,
+    statusFilter: CompletionStatusFilter.all,
   ));
 
   final Ref ref;
@@ -120,6 +153,42 @@ class SearchStateNotifier extends StateNotifier<SearchStateData> {
     });
   }
 
+  /// Update date range filter
+  void updateDateFilter(DateTime? startDate, DateTime? endDate) {
+    state = state.copyWith(
+      startDate: startDate,
+      endDate: endDate,
+    );
+    
+    // Re-run search if there's an active query
+    if (state.query.trim().length >= 3) {
+      _performSearch(state.query.trim());
+    }
+  }
+
+  /// Update completion status filter
+  void updateStatusFilter(CompletionStatusFilter statusFilter) {
+    state = state.copyWith(
+      statusFilter: statusFilter,
+    );
+    
+    // Re-run search if there's an active query
+    if (state.query.trim().length >= 3) {
+      _performSearch(state.query.trim());
+    }
+  }
+
+  /// Clear all filters and search results
+  void clearFilters() {
+    _debounceTimer?.cancel();
+    state = const SearchStateData(
+      query: '',
+      results: [],
+      isLoading: false,
+      statusFilter: CompletionStatusFilter.all,
+    );
+  }
+
   /// Clear search results and query
   void clearResults() {
     _debounceTimer?.cancel();
@@ -127,10 +196,11 @@ class SearchStateNotifier extends StateNotifier<SearchStateData> {
       query: '',
       results: [],
       isLoading: false,
+      statusFilter: CompletionStatusFilter.all,
     );
   }
 
-  /// Perform the actual search operation
+  /// Perform the actual search operation with filtering
   Future<void> _performSearch(String searchTerm) async {
     if (searchTerm.isEmpty) {
       state = state.copyWith(
@@ -140,22 +210,77 @@ class SearchStateNotifier extends StateNotifier<SearchStateData> {
       return;
     }
 
-    final useCase = ref.read(searchTasksUseCaseProvider);
-    final result = await useCase(SearchTasksParams(searchTerm: searchTerm));
+    // Combined search + filter logic per task requirements:
+    // 1. Text search first (if query >= 3 characters)
+    final searchUseCase = ref.read(searchTasksUseCaseProvider);
+    final searchResult = await searchUseCase(SearchTasksParams(searchTerm: searchTerm));
+
+    final searchTasks = searchResult.fold(
+      (failure) {
+        // Only update if this search is still current
+        if (state.query.trim() == searchTerm) {
+          state = state.copyWith(
+            isLoading: false,
+            error: failure,
+            results: [],
+          );
+        }
+        return <Task>[];
+      },
+      (tasks) => tasks,
+    );
+
+    if (searchTasks.isEmpty) return; // Early return if search failed
+
+    // 2. Apply date range filter to results
+    List<Task> filteredTasks = searchTasks;
+    if (state.startDate != null || state.endDate != null) {
+      final dateFilterUseCase = ref.read(filterTasksByDateRangeUseCaseProvider);
+      final dateFilterResult = await dateFilterUseCase(
+        FilterTasksByDateRangeParams(
+          startDate: state.startDate,
+          endDate: state.endDate,
+        ),
+      );
+      
+      filteredTasks = dateFilterResult.fold(
+        (failure) => filteredTasks, // Keep original results if date filter fails
+        (dateFilteredTasks) {
+          // Intersect search results with date filtered results
+          return searchTasks.where((task) => 
+            dateFilteredTasks.any((filtered) => filtered.id == task.id)
+          ).toList();
+        },
+      );
+    }
+
+    // 3. Apply completion status filter to results
+    if (state.statusFilter != CompletionStatusFilter.all) {
+      final statusFilterUseCase = ref.read(getTasksByCompletionStatusUseCaseProvider);
+      final statusFilterResult = await statusFilterUseCase(
+        GetTasksByCompletionStatusParams(filter: state.statusFilter),
+      );
+      
+      filteredTasks = statusFilterResult.fold(
+        (failure) => filteredTasks, // Keep current results if status filter fails
+        (statusFilteredTasks) {
+          // Intersect current results with status filtered results
+          return filteredTasks.where((task) =>
+            statusFilteredTasks.any((filtered) => filtered.id == task.id)
+          ).toList();
+        },
+      );
+    }
+
+    // 4. Order by creation date descending (most recent first per D-07)
+    filteredTasks.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     // Only update if this search is still current
     if (state.query.trim() == searchTerm) {
-      state = result.fold(
-        (failure) => state.copyWith(
-          isLoading: false,
-          error: failure,
-          results: [],
-        ),
-        (tasks) => state.copyWith(
-          isLoading: false,
-          error: null,
-          results: tasks, // Results already ordered by most recent first per D-07
-        ),
+      state = state.copyWith(
+        isLoading: false,
+        error: null,
+        results: filteredTasks,
       );
     }
   }
