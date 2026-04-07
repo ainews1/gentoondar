@@ -165,4 +165,33 @@ class TaskRepositoryImpl implements TaskRepository {
       ));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Task>>> getTasksInDateRange(DateTime? startDate, DateTime? endDate) async {
+    try {
+      // Handle null dates by getting all tasks
+      if (startDate == null && endDate == null) {
+        final taskModels = await _localDataSource.getAllTasks();
+        final tasks = taskModels.map((model) => model.toEntity()).toList();
+        return Right(tasks);
+      }
+      
+      // Use appropriate date range or fallback dates
+      final effectiveStartDate = startDate ?? DateTime(2000, 1, 1);
+      final effectiveEndDate = endDate ?? DateTime(2100, 12, 31);
+      
+      final taskModels = await _localDataSource.getTasksForDateRange(
+        effectiveStartDate, 
+        effectiveEndDate,
+      );
+      final tasks = taskModels.map((model) => model.toEntity()).toList();
+      
+      return Right(tasks);
+    } catch (e) {
+      return Left(DatabaseFailure(
+        'Failed to get tasks in date range: ${e.toString()}',
+        'GET_TASKS_IN_DATE_RANGE_ERROR',
+      ));
+    }
+  }
 }

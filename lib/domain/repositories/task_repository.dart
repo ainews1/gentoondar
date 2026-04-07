@@ -33,4 +33,9 @@ abstract class TaskRepository {
   /// Performs case-insensitive search and returns results ordered by most recent first.
   /// Returns Either<Failure, List<Task>> with matching tasks.
   Future<Either<Failure, List<Task>>> searchTasks(String searchTerm);
+
+  /// Get tasks within a date range (inclusive on both ends).
+  /// If startDate is null, no lower bound. If endDate is null, no upper bound.
+  /// Returns Either<Failure, List<Task>> with tasks in the date range.
+  Future<Either<Failure, List<Task>>> getTasksInDateRange(DateTime? startDate, DateTime? endDate);
 }
