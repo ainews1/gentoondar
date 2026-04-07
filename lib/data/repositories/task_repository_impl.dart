@@ -194,4 +194,19 @@ class TaskRepositoryImpl implements TaskRepository {
       ));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Task>>> getTasksByCompletionStatus(bool isCompleted) async {
+    try {
+      final taskModels = await _localDataSource.getTasksByCompletionStatus(isCompleted);
+      final tasks = taskModels.map((model) => model.toEntity()).toList();
+      
+      return Right(tasks);
+    } catch (e) {
+      return Left(DatabaseFailure(
+        'Failed to get tasks by completion status: ${e.toString()}',
+        'GET_TASKS_BY_COMPLETION_STATUS_ERROR',
+      ));
+    }
+  }
 }

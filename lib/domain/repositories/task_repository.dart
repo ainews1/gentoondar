@@ -38,4 +38,8 @@ abstract class TaskRepository {
   /// If startDate is null, no lower bound. If endDate is null, no upper bound.
   /// Returns Either<Failure, List<Task>> with tasks in the date range.
   Future<Either<Failure, List<Task>>> getTasksInDateRange(DateTime? startDate, DateTime? endDate);
+
+  /// Get tasks filtered by completion status.
+  /// Returns Either<Failure, List<Task>> with tasks matching the completion status.
+  Future<Either<Failure, List<Task>>> getTasksByCompletionStatus(bool isCompleted);
 }
