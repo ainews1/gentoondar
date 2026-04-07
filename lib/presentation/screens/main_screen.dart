@@ -5,6 +5,7 @@ import '../widgets/navigation/bottom_navigation.dart';
 import '../widgets/calendar/month_calendar.dart';
 import '../widgets/calendar/date_task_list.dart';
 import '../widgets/calendar/week_calendar.dart';
+import '../widgets/calendar/day_calendar.dart';
 import '../widgets/common/responsive_layout.dart';
 import 'task_list_screen.dart';
 
@@ -30,6 +31,7 @@ class MainScreen extends ConsumerWidget {
           _buildCalendarView(context),
           _buildTasksView(context),
           _buildWeekView(context),
+          _buildDayView(context),
         ],
       ),
       bottomNavigationBar: const AppBottomNavigation(),
@@ -44,6 +46,7 @@ class MainScreen extends ConsumerWidget {
           _buildCalendarView(context),
           _buildTasksView(context),
           _buildWeekView(context),
+          _buildDayView(context),
         ],
       ),
       bottomNavigationBar: const AppBottomNavigation(),
@@ -66,7 +69,7 @@ class MainScreen extends ConsumerWidget {
             destinations: const [
               NavigationRailDestination(
                 icon: Icon(Icons.calendar_month),
-                label: Text('Calendar'),
+                label: Text('Month'),
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.checklist),
@@ -75,6 +78,10 @@ class MainScreen extends ConsumerWidget {
               NavigationRailDestination(
                 icon: Icon(Icons.calendar_view_week),
                 label: Text('Week'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.calendar_today),
+                label: Text('Day'),
               ),
             ],
           ),
@@ -87,6 +94,7 @@ class MainScreen extends ConsumerWidget {
                 _buildCalendarView(context, showAppBar: false),
                 _buildTasksView(context, showAppBar: false),
                 _buildWeekView(context, showAppBar: false),
+                _buildDayView(context, showAppBar: false),
               ],
             ),
           ),
@@ -191,6 +199,28 @@ class MainScreen extends ConsumerWidget {
               ),
             ),
           const Expanded(child: WeekCalendarWidget()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDayView(BuildContext context, {bool showAppBar = true}) {
+    return Scaffold(
+      appBar: showAppBar ? AppBar(
+        title: const Text('Day View'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ) : null,
+      body: Column(
+        children: [
+          if (!showAppBar)
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Day View',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            ),
+          const Expanded(child: DayCalendarWidget()),
         ],
       ),
     );

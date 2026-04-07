@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-enum AppTab { calendar, tasks, week }
+enum AppTab { calendar, tasks, week, day }
 
 // Current tab selection
 final currentTabProvider = StateProvider<AppTab>((ref) => AppTab.calendar);

@@ -19,7 +19,7 @@ class AppBottomNavigation extends ConsumerWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_month),
-          label: 'Calendar',
+          label: 'Month',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.checklist),
@@ -28,6 +28,10 @@ class AppBottomNavigation extends ConsumerWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_view_week),
           label: 'Week',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          label: 'Day',
         ),
       ],
     );
