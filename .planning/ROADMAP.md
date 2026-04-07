@@ -27,8 +27,8 @@ Building a cross-platform task management app with integrated calendar functiona
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — SQLite database foundation with task models, timezone-aware storage, and optimized query patterns
-- [ ] 01-02-PLAN.md — Repository pattern and use case layer with Riverpod state management for reactive task operations
+- [x] 01-01-PLAN.md — SQLite database foundation with task models, timezone-aware storage, and optimized query patterns
+- [x] 01-02-PLAN.md — Repository pattern and use case layer with Riverpod state management for reactive task operations
 - [ ] 01-03-PLAN.md — Task management UI with forms, lists, and navigation providing full CRUD functionality
 
 ### Phase 2: Calendar Integration  

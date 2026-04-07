@@ -5,10 +5,10 @@
 ## v1 Requirements
 
 ### Task Management
-- [ ] **TASK-01**: User can create tasks with title, description, date, start time, and duration (in minutes)
-- [ ] **TASK-02**: User can edit existing tasks including all properties (title, description, date, time, duration)  
-- [ ] **TASK-03**: User can delete tasks from any view with confirmation dialog
-- [ ] **TASK-04**: User can mark tasks as complete/incomplete with visual status indicator
+- [x] **TASK-01**: User can create tasks with title, description, date, start time, and duration (in minutes)
+- [x] **TASK-02**: User can edit existing tasks including all properties (title, description, date, time, duration)  
+- [x] **TASK-03**: User can delete tasks from any view with confirmation dialog
+- [x] **TASK-04**: User can mark tasks as complete/incomplete with visual status indicator
 
 ### Calendar Views
 - [ ] **CAL-01**: User can view tasks in month calendar with visual indicators for busy days
