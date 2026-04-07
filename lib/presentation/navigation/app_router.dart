@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/presentation/screens/task_list_screen.dart';
+import 'package:task_calendar_app/presentation/screens/search_screen.dart';
 import 'package:task_calendar_app/presentation/widgets/tasks/task_form.dart';
 
 /// Application routing configuration using GoRouter.
@@ -10,6 +11,7 @@ class AppRouter {
   static const String home = '/';
   static const String newTask = '/task/new';
   static const String editTask = '/task/edit';
+  static const String search = '/search';
 
   /// GoRouter configuration with all application routes
   static final GoRouter router = GoRouter(
@@ -60,6 +62,13 @@ class AppRouter {
             ),
           );
         },
+      ),
+
+      // Search tasks route
+      GoRoute(
+        path: search,
+        name: 'search',
+        builder: (context, state) => const SearchScreen(),
       ),
     ],
 
@@ -173,6 +182,11 @@ class AppNavigation {
   /// Navigate to edit task form with existing task data
   static void goToEditTask(BuildContext context, Task task) {
     context.push(AppRouter.editTask, extra: task);
+  }
+
+  /// Navigate to search screen
+  static void goToSearch(BuildContext context) {
+    context.push(AppRouter.search);
   }
 
   /// Go back to previous screen

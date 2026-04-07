@@ -114,6 +114,13 @@ class _TaskListScreenState extends ConsumerState<TaskListScreen> {
         backgroundColor: theme.colorScheme.primary,
         foregroundColor: theme.colorScheme.onPrimary,
         actions: [
+          // Search button
+          IconButton(
+            onPressed: () => AppNavigation.goToSearch(context),
+            icon: const Icon(Icons.search),
+            tooltip: 'Search tasks',
+          ),
+          
           // Today button (only show if not already on today)
           if (!_isToday(selectedDate))
             TextButton(
