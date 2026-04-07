@@ -115,10 +115,14 @@ class _TaskListScreenState extends ConsumerState<TaskListScreen> {
         foregroundColor: theme.colorScheme.onPrimary,
         actions: [
           // Search button
-          IconButton(
-            onPressed: () => AppNavigation.goToSearch(context),
-            icon: const Icon(Icons.search),
-            tooltip: 'Search tasks',
+          Semantics(
+            label: 'Search tasks',
+            hint: 'Double tap to search for tasks by title or description',
+            child: IconButton(
+              onPressed: () => AppNavigation.goToSearch(context),
+              icon: const Icon(Icons.search),
+              tooltip: 'Search tasks',
+            ),
           ),
           
           // Today button (only show if not already on today)
