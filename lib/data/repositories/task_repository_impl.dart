@@ -150,4 +150,19 @@ class TaskRepositoryImpl implements TaskRepository {
       ));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Task>>> searchTasks(String searchTerm) async {
+    try {
+      final taskModels = await _localDataSource.searchTasks(searchTerm);
+      final tasks = taskModels.map((model) => model.toEntity()).toList();
+      
+      return Right(tasks);
+    } catch (e) {
+      return Left(DatabaseFailure(
+        'Failed to search tasks: ${e.toString()}',
+        'SEARCH_TASKS_ERROR',
+      ));
+    }
+  }
 }

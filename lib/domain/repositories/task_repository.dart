@@ -28,4 +28,9 @@ abstract class TaskRepository {
   /// Get all tasks in the database.
   /// Returns Either<Failure, List<Task>> with all available tasks.
   Future<Either<Failure, List<Task>>> getAllTasks();
+
+  /// Search tasks by title or description text.
+  /// Performs case-insensitive search and returns results ordered by most recent first.
+  /// Returns Either<Failure, List<Task>> with matching tasks.
+  Future<Either<Failure, List<Task>>> searchTasks(String searchTerm);
 }
