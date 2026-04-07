@@ -30,9 +30,9 @@
 - [ ] **FILTER-02**: User can filter tasks by completion status (all/pending/completed)
 
 ### Analytics & Insights
-- [ ] **CHART-01**: User can view bar chart showing days with the most tasks
-- [ ] **CHART-02**: User can view bar chart showing total busy minutes per day
-- [ ] **CHART-03**: User can view productivity analytics for different time ranges (week/month)
+- [x] **CHART-01**: User can view bar chart showing days with the most tasks
+- [x] **CHART-02**: User can view bar chart showing total busy minutes per day
+- [x] **CHART-03**: User can view productivity analytics for different time ranges (week/month)
 
 ### Data Persistence
 - [ ] **DATA-01**: All task data persists locally and works offline without internet connection
@@ -41,8 +41,8 @@
 
 ### UI/UX & Accessibility
 - [ ] **UI-01**: Interface adapts to different mobile screen sizes and orientations
-- [ ] **UI-02**: Touch targets meet minimum 44pt accessibility guidelines
-- [ ] **UI-03**: Text maintains sufficient contrast ratios for accessibility
+- [x] **UI-02**: Touch targets meet minimum 44pt accessibility guidelines
+- [x] **UI-03**: Text maintains sufficient contrast ratios for accessibility
 - [ ] **UI-04**: Screen reader users can navigate calendar and create/edit tasks
 - [ ] **UI-05**: Interface follows platform conventions (Material Design on Android, Cupertino on iOS)
 - [ ] **UI-06**: Keyboard input works smoothly without breaking layout
