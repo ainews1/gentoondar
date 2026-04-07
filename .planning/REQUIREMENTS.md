@@ -24,8 +24,8 @@
 - [ ] **DISP-04**: User can see current date highlighted distinctly in all calendar views
 
 ### Search & Filtering
-- [ ] **SEARCH-01**: User can search tasks by title text with real-time results
-- [ ] **SEARCH-02**: User can search tasks by description text with real-time results  
+- [x] **SEARCH-01**: User can search tasks by title text with real-time results
+- [x] **SEARCH-02**: User can search tasks by description text with real-time results  
 - [ ] **FILTER-01**: User can filter tasks by date range using date picker controls
 - [ ] **FILTER-02**: User can filter tasks by completion status (all/pending/completed)
 
