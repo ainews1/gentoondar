@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:intl/intl.dart';
@@ -163,7 +164,7 @@ class _SearchFiltersState extends State<SearchFilters> {
 
   /// Announce filter changes to screen readers per D-10, D-11
   void _announceFilterChange(String message) {
-    SemanticsService.announce(message, TextDirection.ltr);
+    SemanticsService.announce(message, ui.TextDirection.ltr);
   }
 
   /// Count active filters for display

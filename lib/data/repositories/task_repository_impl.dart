@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/domain/repositories/task_repository.dart';
@@ -16,7 +16,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }) : _localDataSource = localDataSource;
 
   @override
-  Future<Either<Failure, Task>> createTask(Task task) async {
+  Future<dartz.Either<Failure, Task>> createTask(Task task) async {
     try {
       final taskModel = TaskModel.fromEntity(task);
       final newId = await _localDataSource.insertTask(taskModel);
@@ -27,9 +27,9 @@ class TaskRepositoryImpl implements TaskRepository {
         updatedAt: DateTime.now().toUtc(),
       );
       
-      return Right(newTask);
+      return dartz.Right(newTask);
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to create task: ${e.toString()}',
         'CREATE_TASK_ERROR',
       ));
@@ -37,7 +37,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, Task>> updateTask(Task task) async {
+  Future<dartz.Either<Failure, Task>> updateTask(Task task) async {
     try {
       // Update the task's updated timestamp
       final updatedTask = task.copyWith(
@@ -48,23 +48,23 @@ class TaskRepositoryImpl implements TaskRepository {
       final rowsAffected = await _localDataSource.updateTask(taskModel);
       
       if (rowsAffected == 0) {
-        return Left(NotFoundFailure(
+        return dartz.Left(NotFoundFailure(
           'Task with ID ${task.id} not found',
           'TASK_NOT_FOUND',
         ));
       }
       
-      return Right(updatedTask);
+      return dartz.Right(updatedTask);
     } catch (e) {
       // Check if it's a not found error based on error message
       if (e.toString().contains('Task not found')) {
-        return Left(NotFoundFailure(
+        return dartz.Left(NotFoundFailure(
           'Task with ID ${task.id} not found',
           'TASK_NOT_FOUND',
         ));
       }
       
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to update task: ${e.toString()}',
         'UPDATE_TASK_ERROR',
       ));
@@ -72,12 +72,12 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteTask(int id) async {
+  Future<dartz.Either<Failure, void>> deleteTask(int id) async {
     try {
       final rowsAffected = await _localDataSource.deleteTask(id);
       
       if (rowsAffected == 0) {
-        return Left(NotFoundFailure(
+        return dartz.Left(NotFoundFailure(
           'Task with ID $id not found',
           'TASK_NOT_FOUND',
         ));
@@ -87,13 +87,13 @@ class TaskRepositoryImpl implements TaskRepository {
     } catch (e) {
       // Check if it's a not found error based on error message
       if (e.toString().contains('Task not found')) {
-        return Left(NotFoundFailure(
+        return dartz.Left(NotFoundFailure(
           'Task with ID $id not found',
           'TASK_NOT_FOUND',
         ));
       }
       
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to delete task: ${e.toString()}',
         'DELETE_TASK_ERROR',
       ));
@@ -101,20 +101,20 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, Task>> getTaskById(int id) async {
+  Future<dartz.Either<Failure, Task>> getTaskById(int id) async {
     try {
       final taskModel = await _localDataSource.getTaskById(id);
       
       if (taskModel == null) {
-        return Left(NotFoundFailure(
+        return dartz.Left(NotFoundFailure(
           'Task with ID $id not found',
           'TASK_NOT_FOUND',
         ));
       }
       
-      return Right(taskModel.toEntity());
+      return dartz.Right(taskModel.toEntity());
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to get task by ID: ${e.toString()}',
         'GET_TASK_ERROR',
       ));
@@ -122,14 +122,14 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<Task>>> getTasksByDate(DateTime date) async {
+  Future<dartz.Either<Failure, List<Task>>> getTasksByDate(DateTime date) async {
     try {
       final taskModels = await _localDataSource.getTasksForDate(date);
       final tasks = taskModels.map((model) => model.toEntity()).toList();
       
-      return Right(tasks);
+      return dartz.Right(tasks);
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to get tasks by date: ${e.toString()}',
         'GET_TASKS_BY_DATE_ERROR',
       ));
@@ -137,14 +137,14 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<Task>>> getAllTasks() async {
+  Future<dartz.Either<Failure, List<Task>>> getAllTasks() async {
     try {
       final taskModels = await _localDataSource.getAllTasks();
       final tasks = taskModels.map((model) => model.toEntity()).toList();
       
-      return Right(tasks);
+      return dartz.Right(tasks);
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to get all tasks: ${e.toString()}',
         'GET_ALL_TASKS_ERROR',
       ));
@@ -152,14 +152,14 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<Task>>> searchTasks(String searchTerm) async {
+  Future<dartz.Either<Failure, List<Task>>> searchTasks(String searchTerm) async {
     try {
       final taskModels = await _localDataSource.searchTasks(searchTerm);
       final tasks = taskModels.map((model) => model.toEntity()).toList();
       
-      return Right(tasks);
+      return dartz.Right(tasks);
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to search tasks: ${e.toString()}',
         'SEARCH_TASKS_ERROR',
       ));
@@ -167,13 +167,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<Task>>> getTasksInDateRange(DateTime? startDate, DateTime? endDate) async {
+  Future<dartz.Either<Failure, List<Task>>> getTasksInDateRange(DateTime? startDate, DateTime? endDate) async {
     try {
       // Handle null dates by getting all tasks
       if (startDate == null && endDate == null) {
         final taskModels = await _localDataSource.getAllTasks();
         final tasks = taskModels.map((model) => model.toEntity()).toList();
-        return Right(tasks);
+        return dartz.Right(tasks);
       }
       
       // Use appropriate date range or fallback dates
@@ -186,9 +186,9 @@ class TaskRepositoryImpl implements TaskRepository {
       );
       final tasks = taskModels.map((model) => model.toEntity()).toList();
       
-      return Right(tasks);
+      return dartz.Right(tasks);
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to get tasks in date range: ${e.toString()}',
         'GET_TASKS_IN_DATE_RANGE_ERROR',
       ));
@@ -196,14 +196,14 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<Task>>> getTasksByCompletionStatus(bool isCompleted) async {
+  Future<dartz.Either<Failure, List<Task>>> getTasksByCompletionStatus(bool isCompleted) async {
     try {
       final taskModels = await _localDataSource.getTasksByCompletionStatus(isCompleted);
       final tasks = taskModels.map((model) => model.toEntity()).toList();
       
-      return Right(tasks);
+      return dartz.Right(tasks);
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to get tasks by completion status: ${e.toString()}',
         'GET_TASKS_BY_COMPLETION_STATUS_ERROR',
       ));

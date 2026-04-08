@@ -50,12 +50,12 @@ class AppTheme {
       ),
 
       // Card styling for task display
-      cardTheme: CardTheme(
+      cardTheme: const CardTheme(
         elevation: 2,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       ),
 
       // Input field styling for forms

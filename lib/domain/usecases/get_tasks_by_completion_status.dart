@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/core/usecase/usecase.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
@@ -19,7 +19,7 @@ class GetTasksByCompletionStatus implements UseCase<List<Task>, GetTasksByComple
   GetTasksByCompletionStatus(this.repository);
 
   @override
-  Future<Either<Failure, List<Task>>> call(GetTasksByCompletionStatusParams params) async {
+  Future<dartz.Either<Failure, List<Task>>> call(GetTasksByCompletionStatusParams params) async {
     try {
       switch (params.filter) {
         case CompletionStatusFilter.all:
@@ -35,7 +35,7 @@ class GetTasksByCompletionStatus implements UseCase<List<Task>, GetTasksByComple
           return await repository.getTasksByCompletionStatus(false);
       }
     } catch (e) {
-      return Left(DatabaseFailure(
+      return dartz.Left(DatabaseFailure(
         'Failed to get tasks by completion status: ${e.toString()}',
         'GET_TASKS_BY_COMPLETION_STATUS_ERROR',
       ));

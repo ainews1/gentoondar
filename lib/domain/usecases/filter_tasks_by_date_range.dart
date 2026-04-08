@@ -13,7 +13,7 @@ class FilterTasksByDateRange implements UseCase<List<Task>, FilterTasksByDateRan
   FilterTasksByDateRange(this.repository);
 
   @override
-  Future<Either<Failure, List<Task>>> call(FilterTasksByDateRangeParams params) async {
+  Future<dartz.Either<Failure, List<Task>>> call(FilterTasksByDateRangeParams params) async {
     // Handle null dates - if both are null, return all tasks
     if (params.startDate == null && params.endDate == null) {
       return await repository.getAllTasks();
