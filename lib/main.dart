@@ -35,6 +35,13 @@ void main() async {
     // In production, you might want to show an error screen
   }
   
+  // Log all Flutter errors to console
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    print('FLUTTER ERROR: ${details.exception}');
+    print('STACK: ${details.stack}');
+  };
+
   runApp(const ProviderScope(child: TaskCalendarApp()));
 }
 

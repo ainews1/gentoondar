@@ -12,7 +12,7 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => TaskModel(
       description: json['description'] as String?,
       startTime: (json['start_time'] as num).toInt(),
       durationMinutes: (json['duration_minutes'] as num).toInt(),
-      isCompleted: json['is_completed'] as bool,
+      isCompleted: json['is_completed'] == 1 || json['is_completed'] == true,
       createdAt: (json['created_at'] as num).toInt(),
       updatedAt: (json['updated_at'] as num).toInt(),
     );
@@ -23,7 +23,7 @@ Map<String, dynamic> _$TaskModelToJson(TaskModel instance) => <String, dynamic>{
       'description': instance.description,
       'start_time': instance.startTime,
       'duration_minutes': instance.durationMinutes,
-      'is_completed': instance.isCompleted,
+      'is_completed': instance.isCompleted ? 1 : 0,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
     };
