@@ -1,12 +1,70 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.iml
 
-# Beads / Dolt files (added by bd init)
-.dolt/
-*.db
-.beads-credential-key
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
 
-# Gas Town (added by gt)
-.runtime/
-.claude/
-.logs/
-__pycache__/
-state.json
+# Android
+android/key.properties
+*.jks
+*.keystore
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+
+# macOS
+macos/Pods/
+macos/.symlinks/
+
+# Misc
+.env
+*.log
+.DS_Store
+node_modules/
+
+# Project-specific large files
+releases/
+recovered-drive*/
+Downloads/
+EndeavourOS*.iso
+*.iso
+LFS-BOOK*.pdf
+flutter/
+go/
+.cargo/
+.pub-cache/
+.cache/
+.config/
+.local/
+.dogecoin/
+.electricsheep/
+.npm/
+.dart-tool/
+.dartServer/
+trading-bot-v2/
+telegram-pi-bot/
+witness/
+crew/
+Pictures/
+Documents/
+wallpapers/
+shaders/
+plugins/
+linux/
+node_modules/
+photorec.se2

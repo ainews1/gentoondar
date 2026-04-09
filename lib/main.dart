@@ -1,5 +1,8 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'presentation/theme/app_theme.dart';
 import 'presentation/navigation/app_router.dart';
 import 'data/datasources/local/database_helper.dart';
@@ -7,6 +10,12 @@ import 'data/datasources/local/database_helper.dart';
 void main() async {
   // Ensure Flutter binding is initialized before async operations
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize FFI database factory for desktop platforms
+  if (!kIsWeb && (Platform.isLinux || Platform.isWindows || Platform.isMacOS)) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
   
   try {
     // Initialize database on app startup
