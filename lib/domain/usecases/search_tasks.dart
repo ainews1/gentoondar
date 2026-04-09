@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide Task;
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/core/usecase/usecase.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';

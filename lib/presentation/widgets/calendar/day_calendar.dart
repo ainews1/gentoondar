@@ -222,7 +222,8 @@ class DayCalendarWidget extends ConsumerWidget {
     final scrollOffset = (minutesFromMidnight / 60.0) * 80.0;
     
     // Scroll to show current time in center of screen
-    final targetOffset = (scrollOffset - (MediaQuery.of(scrollController.position.context).size.height / 2))
+    final viewportHeight = scrollController.position.viewportDimension;
+    final targetOffset = (scrollOffset - (viewportHeight / 2))
         .clamp(0.0, scrollController.position.maxScrollExtent);
     
     scrollController.animateTo(

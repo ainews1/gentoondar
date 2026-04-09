@@ -23,7 +23,7 @@ class TaskList extends ConsumerWidget {
   /// Refresh tasks from data source
   Future<void> _refreshTasks(WidgetRef ref) async {
     final date = filterDate ?? ref.read(selectedDateProvider);
-    await ref.read(taskListProvider.notifier).loadTasks(date);
+    await ref.read(taskListProvider.notifier).loadTasks(date ?? DateTime.now());
   }
 
   /// Show error snack bar

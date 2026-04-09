@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide Task;
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/core/usecase/usecase.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
@@ -13,7 +13,7 @@ class FilterTasksByDateRange implements UseCase<List<Task>, FilterTasksByDateRan
   FilterTasksByDateRange(this.repository);
 
   @override
-  Future<dartz.Either<Failure, List<Task>>> call(FilterTasksByDateRangeParams params) async {
+  Future<Either<Failure, List<Task>>> call(FilterTasksByDateRangeParams params) async {
     // Handle null dates - if both are null, return all tasks
     if (params.startDate == null && params.endDate == null) {
       return await repository.getAllTasks();

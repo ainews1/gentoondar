@@ -50,7 +50,7 @@ class AppTheme {
       ),
 
       // Card styling for task display
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -192,7 +192,7 @@ class AppTheme {
       ),
 
       // Dialog styling for confirmations
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
@@ -230,7 +230,7 @@ class AppTheme {
       ),
 
       // Adapt card theme for dark mode
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

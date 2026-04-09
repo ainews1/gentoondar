@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide Task;
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/domain/usecases/search_tasks.dart';

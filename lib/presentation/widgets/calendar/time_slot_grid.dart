@@ -8,7 +8,7 @@ class TimeSlotGrid extends StatelessWidget {
   final DateTime endHour;
   final Function(DateTime day, DateTime time)? onTimeSlotTap;
 
-  const TimeSlotGrid({
+  TimeSlotGrid({
     Key? key,
     required this.weekDays,
     this.hourHeight = 60.0,
@@ -16,8 +16,8 @@ class TimeSlotGrid extends StatelessWidget {
     DateTime? endHour,
     this.onTimeSlotTap,
   }) : 
-    startHour = startHour ?? const DateTime(2024, 1, 1, 6), // 6 AM
-    endHour = endHour ?? const DateTime(2024, 1, 1, 23), // 11 PM
+    startHour = startHour ?? DateTime(2024, 1, 1, 6), // 6 AM
+    endHour = endHour ?? DateTime(2024, 1, 1, 23), // 11 PM
     super(key: key);
 
   @override

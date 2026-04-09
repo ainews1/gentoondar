@@ -74,7 +74,7 @@ class AppRouter {
 
     // Error handling for invalid routes
     errorBuilder: (context, state) => _ErrorScreen(
-      message: 'Page not found: ${state.location}',
+      message: 'Page not found: ${state.uri}',
     ),
 
     // Custom redirect logic (if needed in future)
@@ -208,7 +208,7 @@ class AppNavigation {
 class RouteInfo {
   static String getCurrentRoute(BuildContext context) {
     final router = GoRouter.of(context);
-    return router.routerDelegate.currentConfiguration.location;
+    return router.routerDelegate.currentConfiguration.uri.toString();
   }
 
   static bool isCurrentRoute(BuildContext context, String route) {

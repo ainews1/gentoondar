@@ -9,12 +9,18 @@ final currentDayProvider = StateProvider<DateTime>((ref) {
   return DateTime(now.year, now.month, now.day);
 });
 
+// Use case provider for day queries
+final _getTasksByDateUseCaseDayProvider = Provider<GetTasksByDate>((ref) {
+  final repository = ref.watch(taskRepositoryProvider);
+  return GetTasksByDate(repository);
+});
+
 // Tasks for current day (reusing existing use case)
 final dayTasksProvider = FutureProvider<List<Task>>((ref) async {
   final currentDay = ref.watch(currentDayProvider);
-  final getTasksByDate = ref.watch(getTasksByDateProvider);
+  final getTasksByDate = ref.watch(_getTasksByDateUseCaseDayProvider);
   
-  final result = await getTasksByDate(DateParams(date: currentDay));
+  final result = await getTasksByDate(GetTasksByDateParams(date: currentDay));
   
   return result.fold(
     (failure) => throw Exception('Failed to load tasks for day'),

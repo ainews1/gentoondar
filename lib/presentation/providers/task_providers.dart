@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide Task;
 import 'package:task_calendar_app/core/error/failures.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/domain/repositories/task_repository.dart';
@@ -300,7 +300,7 @@ class DeleteTaskNotifier extends AsyncNotifier<bool> {
 
 /// Extension to safely get value from AsyncValue or return null
 extension AsyncValueExtensions<T> on AsyncValue<T> {
-  T? get valueOrNull => when(
+  T? get safeValue => when(
     data: (value) => value,
     loading: () => null,
     error: (_, __) => null,
