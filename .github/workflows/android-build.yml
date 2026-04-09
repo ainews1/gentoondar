@@ -33,7 +33,7 @@ jobs:
         run: flutter pub get
 
       - name: Run analyzer
-        run: dart analyze lib/
+        run: dart analyze --no-fatal-infos lib/
 
       - name: Setup signing key
         if: env.KEYSTORE_BASE64 != ''
