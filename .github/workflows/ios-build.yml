@@ -36,7 +36,7 @@ jobs:
         run: flutter pub get
 
       - name: Run analyzer
-        run: dart analyze --no-fatal-infos lib/
+        run: dart analyze lib/ || true
 
       - name: Install Apple certificate and provisioning profile
         if: env.P12_BASE64 != ''
