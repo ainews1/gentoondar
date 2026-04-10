@@ -10,6 +10,7 @@ import '../widgets/common/responsive_layout.dart';
 import '../widgets/charts/productivity_charts.dart';
 import 'task_list_screen.dart';
 import 'analytics_screen.dart';
+import '../widgets/pomodoro/pomodoro_fab.dart';
 
 class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -26,40 +27,45 @@ class MainScreen extends ConsumerWidget {
   }
 
   Widget _buildMobileLayout(BuildContext context, WidgetRef ref, AppTab currentTab) {
-    return Scaffold(
-      body: IndexedStack(
-        index: currentTab.index,
-        children: [
-          _buildCalendarView(context),
-          _buildTasksView(context),
-          _buildWeekView(context),
-          _buildDayView(context),
-          _buildAnalyticsView(context),
-        ],
+    return PomodoroFab(
+      child: Scaffold(
+        body: IndexedStack(
+          index: currentTab.index,
+          children: [
+            _buildCalendarView(context),
+            _buildTasksView(context),
+            _buildWeekView(context),
+            _buildDayView(context),
+            _buildAnalyticsView(context),
+          ],
+        ),
+        bottomNavigationBar: const AppBottomNavigation(),
       ),
-      bottomNavigationBar: const AppBottomNavigation(),
     );
   }
 
   Widget _buildTabletLayout(BuildContext context, WidgetRef ref, AppTab currentTab) {
-    return Scaffold(
-      body: IndexedStack(
-        index: currentTab.index,
-        children: [
-          _buildCalendarView(context),
-          _buildTasksView(context),
-          _buildWeekView(context),
-          _buildDayView(context),
-          _buildAnalyticsView(context),
-        ],
+    return PomodoroFab(
+      child: Scaffold(
+        body: IndexedStack(
+          index: currentTab.index,
+          children: [
+            _buildCalendarView(context),
+            _buildTasksView(context),
+            _buildWeekView(context),
+            _buildDayView(context),
+            _buildAnalyticsView(context),
+          ],
+        ),
+        bottomNavigationBar: const AppBottomNavigation(),
       ),
-      bottomNavigationBar: const AppBottomNavigation(),
     );
   }
 
   Widget _buildDesktopLayout(BuildContext context, WidgetRef ref, AppTab currentTab) {
     // For desktop, show a side-by-side layout
-    return Scaffold(
+    return PomodoroFab(
+      child: Scaffold(
       body: Row(
         children: [
           // Navigation rail instead of bottom nav
@@ -108,6 +114,7 @@ class MainScreen extends ConsumerWidget {
             ),
           ),
         ],
+      ),
       ),
     );
   }
