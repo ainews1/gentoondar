@@ -136,3 +136,30 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 ✓ UI-04: Screen reader navigation and task creation accessibility
 
 **Coverage Summary**: 25/25 v1 requirements mapped to phases (100% coverage)
+
+### Phase 5: Add Pomodoro timer feature
+
+**Goal:** Integrate a full-featured Pomodoro timer with task linking, 7 visual themes with unlock system, procedurally-generated pixel art penguin mascot, themed sound packs, and Pomodoro analytics into the existing app
+**Depends on:** Phase 4
+**Requirements**: D-01 through D-56 (56 decisions from context session)
+**Success Criteria** (what must be TRUE):
+  1. User can start a Pomodoro timer linked to any task via FAB or task card
+  2. Timer runs work/break cycles with configurable durations and auto-start behavior
+  3. User can customize timer with 3 presets (Classic/Deep Work/Sprint) or custom durations
+  4. Timer panel shows countdown, controls, daily stats, goal progress, and streak counter
+  5. 7 visual themes change timer panel appearance, 3 free + 4 earned at session milestones
+  6. Pixel art penguin mascot evolves procedurally based on session history
+  7. Pomodoro analytics charts appear in existing Analytics tab
+  8. Calendar day/week views show Pomodoro session markers on task blocks
+  9. Task cards display Pomodoro count badges and "Start Pomodoro" button
+**Plans**: 8 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — Data layer: entities, DB migration v2, datasources, repository, new dependencies
+- [ ] 05-02-PLAN.md — Timer state machine, use cases, and Riverpod providers for timer/sessions/settings
+- [ ] 05-03-PLAN.md — Timer UI: FAB overlay, timer panel, countdown ring, controls, daily stats
+- [ ] 05-04-PLAN.md — Settings screen: presets, duration sliders, behavior toggles, routing
+- [ ] 05-05-PLAN.md — Theme system: 7 themes with unlock logic, theme picker grid, audio service
+- [ ] 05-06-PLAN.md — Penguin mascot: procedural renderer, idle animations, evolution system
+- [ ] 05-07-PLAN.md — Integration: analytics charts, calendar markers, task card badges
+- [ ] 05-08-PLAN.md — Polish: audio wiring, theme animations, auto-stop, end-to-end verification
