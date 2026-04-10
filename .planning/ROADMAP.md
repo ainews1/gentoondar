@@ -155,11 +155,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 **Plans**: 8 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Data layer: entities, DB migration v2, datasources, repository, new dependencies
-- [ ] 05-02-PLAN.md — Timer state machine, use cases, and Riverpod providers for timer/sessions/settings
-- [ ] 05-03-PLAN.md — Timer UI: FAB overlay, timer panel, countdown ring, controls, daily stats
-- [ ] 05-04-PLAN.md — Settings screen: presets, duration sliders, behavior toggles, routing
+- [x] 05-01-PLAN.md — Data layer: entities, DB migration v2, datasources, repository, new dependencies
+- [x] 05-02-PLAN.md — Timer state machine, use cases, and Riverpod providers for timer/sessions/settings
+- [x] 05-03-PLAN.md — Timer UI: FAB overlay, timer panel, countdown ring, controls, daily stats
+- [x] 05-04-PLAN.md — Settings screen: presets, duration sliders, behavior toggles, routing
 - [ ] 05-05-PLAN.md — Theme system: 7 themes with unlock logic, theme picker grid, audio service
-- [ ] 05-06-PLAN.md — Penguin mascot: procedural renderer, idle animations, evolution system
+- [x] 05-06-PLAN.md — Penguin mascot: procedural renderer, idle animations, evolution system
 - [ ] 05-07-PLAN.md — Integration: analytics charts, calendar markers, task card badges
 - [ ] 05-08-PLAN.md — Polish: audio wiring, theme animations, auto-stop, end-to-end verification
