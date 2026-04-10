@@ -4,12 +4,12 @@ import 'package:go_router/go_router.dart';
 import '../../providers/pomodoro_timer_providers.dart';
 import '../../providers/pomodoro_session_providers.dart';
 import '../../providers/pomodoro_settings_providers.dart';
+import '../../providers/pomodoro_theme_providers.dart';
 import 'timer_countdown.dart';
 import 'timer_controls.dart';
 import 'task_selector.dart';
 import 'goal_progress.dart';
 import 'streak_counter.dart';
-import 'penguin_widget.dart';
 
 /// Expandable timer panel that assembles all Pomodoro sub-components (D-02, D-23).
 /// Compact mode: 180px height with countdown, controls, task selector, daily stats.
@@ -47,16 +47,15 @@ class _TimerPanelState extends ConsumerState<TimerPanel> {
 
     final panelHeight = _isExpanded ? 280.0 : 200.0;
 
+    final pomodoroTheme = ref.watch(currentPomodoroThemeProvider);
+
     return Material(
       elevation: 8,
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),
       ),
-      color: Theme.of(context)
-          .colorScheme
-          .surfaceContainerHighest
-          .withValues(alpha: 0.95),
+      color: pomodoroTheme.secondary.withValues(alpha: 0.95),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         height: panelHeight,
@@ -140,13 +139,8 @@ class _TimerPanelState extends ConsumerState<TimerPanel> {
             // Expanded content: streak + expand toggle
             if (_isExpanded) ...[
               const SizedBox(height: 8),
-              const Row(
-                children: [
-                  PenguinWidget(),
-                  SizedBox(width: 8),
-                  Expanded(child: StreakCounter()),
-                ],
-              ),
+              const StreakCounter(),
+              // Penguin placeholder for Plan 06
             ],
 
             // Expand/collapse chevron

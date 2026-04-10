@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/pomodoro_timer_providers.dart';
+import '../../providers/pomodoro_theme_providers.dart';
 import 'timer_panel.dart';
 
 /// Floating Action Button overlay for Pomodoro timer access (D-01, D-02, D-03).
@@ -68,6 +69,7 @@ class _PomodoroFabState extends ConsumerState<PomodoroFab>
   Widget build(BuildContext context) {
     final timerState = ref.watch(pomodoroTimerProvider);
     final isActive = timerState.isActive;
+    final pomodoroTheme = ref.watch(currentPomodoroThemeProvider);
 
     // Listen for message provider to show SnackBar
     ref.listen<String?>(pomodoroMessageProvider, (previous, next) {
@@ -120,11 +122,25 @@ class _PomodoroFabState extends ConsumerState<PomodoroFab>
                 'Pomodoro Timer. ${isActive ? "Running" : "Stopped"}',
             child: Stack(
               children: [
-                FloatingActionButton(
-                  heroTag: 'pomodoro_fab',
-                  onPressed: _togglePanel,
-                  tooltip: 'Pomodoro Timer',
-                  child: const Icon(Icons.timer, size: 24),
+                Container(
+                  decoration: isActive
+                      ? BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: pomodoroTheme.glow.withValues(alpha: 0.4),
+                              blurRadius: 16,
+                              spreadRadius: 4,
+                            ),
+                          ],
+                        )
+                      : null,
+                  child: FloatingActionButton(
+                    heroTag: 'pomodoro_fab',
+                    onPressed: _togglePanel,
+                    tooltip: 'Pomodoro Timer',
+                    child: const Icon(Icons.timer, size: 24),
+                  ),
                 ),
                 // Active indicator badge
                 if (isActive)
