@@ -5,9 +5,10 @@ import 'package:path/path.dart';
 /// SQLite database helper with singleton pattern and optimized task schema
 class DatabaseHelper {
   static const String _databaseName = 'task_calendar.db';
-  static const int _databaseVersion = 1;
-  
+  static const int _databaseVersion = 2;
+
   static const String tableTask = 'tasks';
+  static const String tablePomodoroSession = 'pomodoro_sessions';
 
   // Singleton pattern
   DatabaseHelper._privateConstructor();
@@ -56,7 +57,10 @@ class DatabaseHelper {
 
     // Create optimized indexes for calendar app query patterns
     await _createIndexes(db);
-    
+
+    // Create pomodoro sessions table
+    await _createPomodoroTable(db);
+
     print('Database created successfully with version $version');
   }
 
@@ -92,12 +96,35 @@ class DatabaseHelper {
   /// Handle database upgrades (future schema changes)
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('Upgrading database from version $oldVersion to $newVersion');
-    
-    // Future schema migrations will go here
-    // Example:
-    // if (oldVersion < 2) {
-    //   await db.execute('ALTER TABLE $tableTask ADD COLUMN priority INTEGER DEFAULT 0');
-    // }
+
+    if (oldVersion < 2) {
+      await _createPomodoroTable(db);
+    }
+  }
+
+  /// Create pomodoro sessions table with indexes and foreign key
+  Future<void> _createPomodoroTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE $tablePomodoroSession (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task_id INTEGER NOT NULL,
+        session_type TEXT NOT NULL CHECK(session_type IN ('work', 'short_break', 'long_break')),
+        started_at INTEGER NOT NULL,
+        ended_at INTEGER NOT NULL,
+        duration_seconds INTEGER NOT NULL,
+        planned_duration_seconds INTEGER NOT NULL,
+        is_completed INTEGER NOT NULL DEFAULT 1 CHECK(is_completed IN (0, 1)),
+        created_at INTEGER NOT NULL,
+        FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
+      )
+    ''');
+    await db.execute(
+        'CREATE INDEX idx_pomodoro_task ON $tablePomodoroSession(task_id)');
+    await db.execute(
+        'CREATE INDEX idx_pomodoro_date ON $tablePomodoroSession(started_at)');
+    await db.execute(
+        'CREATE INDEX idx_pomodoro_type ON $tablePomodoroSession(session_type)');
+    print('Pomodoro sessions table created successfully');
   }
 
   /// Called when database is opened
