@@ -45,7 +45,7 @@
 - [x] **UI-03**: Text maintains sufficient contrast ratios for accessibility
 - [ ] **UI-04**: Screen reader users can navigate calendar and create/edit tasks
 - [ ] **UI-05**: Interface follows platform conventions (Material Design on Android, Cupertino on iOS)
-- [ ] **UI-06**: Keyboard input works smoothly without breaking layout
+- [x] **UI-06**: Keyboard input works smoothly without breaking layout
 
 ## v2 Requirements (Deferred)
 
