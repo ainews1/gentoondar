@@ -7,6 +7,7 @@ import '../../providers/task_providers.dart';
 import '../common/responsive_layout.dart';
 import 'hourly_timeline.dart';
 import 'day_task_scheduler.dart';
+// PomodoroCalendarMarker integrated in DayTaskScheduler
 
 class DayCalendarWidget extends ConsumerWidget {
   const DayCalendarWidget({Key? key}) : super(key: key);

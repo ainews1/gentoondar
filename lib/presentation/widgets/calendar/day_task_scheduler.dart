@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/entities/task.dart';
 import '../../providers/day_view_providers.dart';
+import 'pomodoro_marker.dart';
 
 class DayTaskScheduler extends ConsumerWidget {
   final DateTime day;
@@ -94,6 +95,9 @@ class DayTaskScheduler extends ConsumerWidget {
                   fontSize: 10,
                 ),
               ),
+
+              // Pomodoro session markers
+              PomodoroCalendarMarker(taskId: task.id),
               
               // Description (if space allows)
               if (task.description?.isNotEmpty == true && _calculateTaskHeight(task) > 60) ...[

@@ -6,6 +6,7 @@ import '../../providers/analytics_providers.dart';
 import '../common/responsive_layout.dart';
 import 'task_count_chart.dart';
 import 'busy_minutes_chart.dart';
+import 'pomodoro_charts.dart';
 
 class ProductivityChartsWidget extends ConsumerWidget {
   const ProductivityChartsWidget({Key? key}) : super(key: key);
@@ -115,6 +116,8 @@ class ProductivityChartsWidget extends ConsumerWidget {
           _buildTaskCountSection(context, data),
           const SizedBox(height: 16),
           _buildBusyMinutesSection(context, data),
+          const SizedBox(height: 32),
+          const PomodoroChartsWidget(),
           const SizedBox(height: 16),
         ],
       ),
@@ -134,6 +137,8 @@ class ProductivityChartsWidget extends ConsumerWidget {
               Expanded(child: _buildBusyMinutesSection(context, data)),
             ],
           ),
+          const SizedBox(height: 32),
+          const PomodoroChartsWidget(),
           const SizedBox(height: 20),
         ],
       ),
@@ -155,6 +160,8 @@ class ProductivityChartsWidget extends ConsumerWidget {
                 Expanded(child: _buildBusyMinutesSection(context, data)),
               ],
             ),
+            const SizedBox(height: 32),
+            const PomodoroChartsWidget(),
             const SizedBox(height: 24),
           ],
         ),

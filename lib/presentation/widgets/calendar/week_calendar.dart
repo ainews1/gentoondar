@@ -7,6 +7,7 @@ import '../../providers/task_providers.dart';
 import '../common/responsive_layout.dart';
 import 'time_slot_grid.dart';
 import 'task_duration_block.dart';
+// PomodoroCalendarMarker integrated in TaskDurationBlock
 
 class WeekCalendarWidget extends ConsumerWidget {
   const WeekCalendarWidget({Key? key}) : super(key: key);
