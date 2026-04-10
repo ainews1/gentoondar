@@ -9,7 +9,6 @@ import '../widgets/calendar/day_calendar.dart';
 import '../widgets/common/responsive_layout.dart';
 import '../widgets/charts/productivity_charts.dart';
 import 'task_list_screen.dart';
-import 'analytics_screen.dart';
 import '../widgets/pomodoro/pomodoro_fab.dart';
 
 class MainScreen extends ConsumerWidget {

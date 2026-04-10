@@ -106,8 +106,7 @@ class HighlightedTaskCard extends ConsumerWidget {
           : description;
     }
 
-    // Create snippet around the match
-    const snippetLength = 80;
+    // Create snippet around the match (+/-30 chars around match)
     final start = (matchIndex - 30).clamp(0, description.length);
     final end = (matchIndex + searchTerm.length + 30).clamp(0, description.length);
     

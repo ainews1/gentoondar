@@ -23,9 +23,7 @@ class TimeSlotGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hours = _generateHours();
-    final timeSlotWidth = (MediaQuery.of(context).size.width - 60) / 7; // 60px for time labels
-    
-    return CustomScrollView(
+        return CustomScrollView(
       slivers: [
         // Week header with day names
         SliverToBoxAdapter(

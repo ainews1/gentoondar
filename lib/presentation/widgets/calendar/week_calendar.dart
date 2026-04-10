@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/entities/task.dart';
 import '../../providers/week_view_providers.dart';
-import '../../providers/task_providers.dart';
 import '../common/responsive_layout.dart';
 import 'time_slot_grid.dart';
 import 'task_duration_block.dart';
@@ -16,7 +15,6 @@ class WeekCalendarWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final weekTasksAsync = ref.watch(weekTasksProvider);
     final weekDays = ref.watch(weekDaysProvider);
-    final currentWeek = ref.watch(currentWeekProvider);
 
     return Column(
       children: [

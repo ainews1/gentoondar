@@ -230,7 +230,7 @@ class DateTaskListWidget extends ConsumerWidget {
           TextButton(
             onPressed: () async {
               final deleteTaskProvider = ref.read(deleteTaskUseCaseProvider);
-              await deleteTaskProvider.call(DeleteTaskParams(id: task.id!));
+              await deleteTaskProvider.call(DeleteTaskParams(id: task.id));
               // Refresh the task list
               ref.invalidate(selectedDateTasksProvider);
               if (context.mounted) {

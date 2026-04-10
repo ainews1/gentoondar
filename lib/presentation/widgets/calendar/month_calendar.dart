@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../domain/entities/task.dart';
 import '../../providers/calendar_providers.dart';
-import '../../theme/app_theme.dart';
 import '../common/responsive_layout.dart';
 import 'calendar_indicators.dart';
 

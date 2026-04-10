@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'pomodoro_settings_providers.dart';
 import 'pomodoro_session_providers.dart';
-import 'pomodoro_timer_providers.dart';
 
 // =============================================================================
 // Theme Data Model
@@ -147,8 +146,6 @@ final unlockedThemesProvider = FutureProvider<Set<String>>((ref) async {
 /// via pomodoroMessageProvider if a new milestone was reached.
 final themeUnlockCheckProvider = Provider<void>((ref) {
   final unlockedAsync = ref.watch(unlockedThemesProvider);
-  final totalCountAsync = ref.watch(dailyPomodoroCountProvider);
-
   // Only act when data is available
   final unlocked = unlockedAsync.valueOrNull;
   if (unlocked == null) return;

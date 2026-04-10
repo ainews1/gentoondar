@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_calendar_app/presentation/providers/search_providers.dart';
 import 'package:task_calendar_app/presentation/widgets/search/highlighted_task_card.dart';
 import 'package:task_calendar_app/presentation/widgets/search/search_filters.dart';
-import 'package:task_calendar_app/presentation/widgets/tasks/task_card.dart';
 import 'package:task_calendar_app/domain/usecases/get_tasks_by_completion_status.dart';
 
 /// Dedicated search screen with Material 3 SearchBar and real-time search.

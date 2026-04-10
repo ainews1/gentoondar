@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/entities/task.dart';
 import '../../providers/day_view_providers.dart';
-import '../../providers/task_providers.dart';
 import '../common/responsive_layout.dart';
 import 'hourly_timeline.dart';
 import 'day_task_scheduler.dart';
