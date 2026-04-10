@@ -45,9 +45,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Month calendar widget integration with table_calendar and task data overlay
-- [ ] 02-02: Date selection, task filtering by date, and calendar-task navigation flow
-- [ ] 02-03: Calendar visual indicators, responsive layout, and platform UI adaptation
+- [x] 02-01: Month calendar widget integration with table_calendar and task data overlay
+- [x] 02-02: Date selection, task filtering by date, and calendar-task navigation flow
+- [x] 02-03: Calendar visual indicators, responsive layout, and platform UI adaptation
 
 ### Phase 3: Advanced Views
 **Goal**: Users can view tasks in time-aware week/day layouts and analyze productivity patterns with charts
@@ -82,7 +82,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Text search implementation with real-time results, highlighting, and Material 3 SearchBar
-- [ ] 04-02-PLAN.md — Date range filtering, completion status filters, and comprehensive accessibility compliance
+- [x] 04-02-PLAN.md — Date range filtering, completion status filters, and comprehensive accessibility compliance
 
 ## Progress
 
@@ -159,7 +159,7 @@ Plans:
 - [x] 05-02-PLAN.md — Timer state machine, use cases, and Riverpod providers for timer/sessions/settings
 - [x] 05-03-PLAN.md — Timer UI: FAB overlay, timer panel, countdown ring, controls, daily stats
 - [x] 05-04-PLAN.md — Settings screen: presets, duration sliders, behavior toggles, routing
-- [ ] 05-05-PLAN.md — Theme system: 7 themes with unlock logic, theme picker grid, audio service
+- [x] 05-05-PLAN.md — Theme system: 7 themes with unlock logic, theme picker grid, audio service
 - [x] 05-06-PLAN.md — Penguin mascot: procedural renderer, idle animations, evolution system
-- [ ] 05-07-PLAN.md — Integration: analytics charts, calendar markers, task card badges
-- [ ] 05-08-PLAN.md — Polish: audio wiring, theme animations, auto-stop, end-to-end verification
+- [x] 05-07-PLAN.md — Integration: analytics charts, calendar markers, task card badges
+- [x] 05-08-PLAN.md — Polish: audio wiring, theme animations, auto-stop, end-to-end verification
