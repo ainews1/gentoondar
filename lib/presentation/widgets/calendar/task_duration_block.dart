@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/entities/task.dart';
+import 'pomodoro_marker.dart';
 
-class TaskDurationBlock extends StatelessWidget {
+class TaskDurationBlock extends ConsumerWidget {
   final Task task;
   final double hourHeight;
   final VoidCallback? onTap;
@@ -17,7 +19,7 @@ class TaskDurationBlock extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final blockHeight = _calculateBlockHeight();
     final topOffset = _calculateTopOffset();
     
@@ -67,6 +69,8 @@ class TaskDurationBlock extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  // Pomodoro session markers
+                  PomodoroCalendarMarker(taskId: task.id),
                 ],
                 if (task.description?.isNotEmpty == true && blockHeight > 50) ...[
                   const SizedBox(height: 2),
