@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_calendar_app/presentation/providers/pomodoro_settings_providers.dart';
 import 'package:task_calendar_app/presentation/widgets/pomodoro/preset_selector.dart';
 import 'package:task_calendar_app/presentation/widgets/pomodoro/duration_sliders.dart';
+import 'package:task_calendar_app/presentation/widgets/pomodoro/penguin_widget.dart';
 
 /// Pomodoro settings screen with all configurable options.
 /// Sections: Timer Presets, Session Behavior, Daily Goal, Sound, Theme, Penguin.
@@ -235,26 +236,9 @@ class PomodoroSettingsScreen extends ConsumerWidget {
                       },
                     ),
                     const SizedBox(height: 16),
-                    // Placeholder for penguin preview (filled in Plan 06)
-                    Center(
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.pets,
-                          size: 40,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
+                    // Live penguin preview
+                    const Center(
+                      child: PenguinWidget(),
                     ),
                   ],
                 ),

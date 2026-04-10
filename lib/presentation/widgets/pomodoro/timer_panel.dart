@@ -9,6 +9,7 @@ import 'timer_controls.dart';
 import 'task_selector.dart';
 import 'goal_progress.dart';
 import 'streak_counter.dart';
+import 'penguin_widget.dart';
 
 /// Expandable timer panel that assembles all Pomodoro sub-components (D-02, D-23).
 /// Compact mode: 180px height with countdown, controls, task selector, daily stats.
@@ -139,8 +140,13 @@ class _TimerPanelState extends ConsumerState<TimerPanel> {
             // Expanded content: streak + expand toggle
             if (_isExpanded) ...[
               const SizedBox(height: 8),
-              const StreakCounter(),
-              // Penguin placeholder for Plan 06
+              const Row(
+                children: [
+                  PenguinWidget(),
+                  SizedBox(width: 8),
+                  Expanded(child: StreakCounter()),
+                ],
+              ),
             ],
 
             // Expand/collapse chevron
