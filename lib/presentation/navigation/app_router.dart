@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/presentation/screens/task_list_screen.dart';
 import 'package:task_calendar_app/presentation/screens/search_screen.dart';
+import 'package:task_calendar_app/presentation/screens/pomodoro_settings_screen.dart';
 import 'package:task_calendar_app/presentation/widgets/tasks/task_form.dart';
 
 /// Application routing configuration using GoRouter.
@@ -12,6 +13,7 @@ class AppRouter {
   static const String newTask = '/task/new';
   static const String editTask = '/task/edit';
   static const String search = '/search';
+  static const String pomodoroSettings = '/pomodoro-settings';
 
   /// GoRouter configuration with all application routes
   static final GoRouter router = GoRouter(
@@ -69,6 +71,13 @@ class AppRouter {
         path: search,
         name: 'search',
         builder: (context, state) => const SearchScreen(),
+      ),
+
+      // Pomodoro settings route
+      GoRoute(
+        path: pomodoroSettings,
+        name: 'pomodoro_settings',
+        builder: (context, state) => const PomodoroSettingsScreen(),
       ),
     ],
 
@@ -187,6 +196,11 @@ class AppNavigation {
   /// Navigate to search screen
   static void goToSearch(BuildContext context) {
     context.push(AppRouter.search);
+  }
+
+  /// Navigate to pomodoro settings screen
+  static void goToPomodoroSettings(BuildContext context) {
+    context.push(AppRouter.pomodoroSettings);
   }
 
   /// Go back to previous screen
