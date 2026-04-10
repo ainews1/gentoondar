@@ -167,7 +167,7 @@ class _TaskListScreenState extends ConsumerState<TaskListScreen> {
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.onPrimary.withOpacity(0.1),
+                          color: theme.colorScheme.onPrimary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Text(
@@ -204,7 +204,7 @@ class _TaskListScreenState extends ConsumerState<TaskListScreen> {
           const Divider(height: 1),
           
           // Task list
-          Expanded(
+          const Expanded(
             child: AutoTaskList(),
           ),
         ],

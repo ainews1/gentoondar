@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:task_calendar_app/domain/entities/task.dart';
 import 'package:task_calendar_app/presentation/providers/task_providers.dart';
 import 'package:task_calendar_app/presentation/widgets/tasks/task_card.dart';
 import 'package:task_calendar_app/presentation/navigation/app_router.dart';

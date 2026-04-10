@@ -326,7 +326,7 @@ class _TaskFormState extends ConsumerState<TaskForm> {
 
                 // Duration selector
                 DropdownButtonFormField<int>(
-                  value: _selectedDuration,
+                  initialValue: _selectedDuration,
                   decoration: const InputDecoration(
                     labelText: 'Duration *',
                     hintText: 'Select task duration',

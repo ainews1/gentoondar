@@ -103,7 +103,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
         : AppTextStyles.taskTitle;
 
     final cardColor = isCompleted
-        ? colorScheme.surfaceVariant.withOpacity(0.5)
+        ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
         : colorScheme.surface;
 
     return GestureDetector(
@@ -247,7 +247,7 @@ class _TaskCardState extends ConsumerState<TaskCard> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.check_circle,
                           size: 16,
                           color: AppColors.success,
@@ -347,9 +347,8 @@ class TaskCardCompact extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
     final isCompleted = task.isCompleted;
-    
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       child: ListTile(
